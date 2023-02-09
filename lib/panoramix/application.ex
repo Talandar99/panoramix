@@ -2,18 +2,17 @@ defmodule Panoramix.Application do
   use Application
   alias Alchemy.Client
 
-  defp load_modules do
-    use Panoramix.Commands
+  defmodule Commands do
+    use Alchemy.Cogs
+
+    Cogs.def ping do
+      Cogs.say("pong!")
+    end
   end
 
-  @impl true
   def start(_type, _args) do
-    children = []
-
-    Client.start(Application.get_env(:allybot, :token))
-    load_modules()
-
-    opts = [strategy: :one_for_one, name: Allybot.Supervisor]
-    Supervisor.start_link(children, opts)
+    run = Client.start(System.get_env("BOT_TOKEN"))
+    use Commands
+    run
   end
 end
