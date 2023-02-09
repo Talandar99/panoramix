@@ -7,7 +7,7 @@ defmodule Panoramix.Application do
 
     Events.on_message(:ping)
 
-    def ping(%{message: %{channel: channel}} = msg) do
+    def ping(%{message: %{channel_id: channel}}) do
       Client.send_message(channel, "pong")
     end
   end
