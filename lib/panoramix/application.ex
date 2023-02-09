@@ -12,6 +12,7 @@ defmodule Panoramix.Application do
 
   def start(_type, _args) do
     run = Client.start(System.get_env("BOT_TOKEN"))
+    Alchemy.Cogs.set_prefix("X")
     use Commands
     run
   end
