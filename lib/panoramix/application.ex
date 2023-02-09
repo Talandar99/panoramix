@@ -3,16 +3,17 @@ defmodule Panoramix.Application do
   alias Alchemy.Client
 
   defmodule Commands do
-    use Alchemy.Cogs
-
-    Cogs.def ping do
-      Cogs.say("pong!")
-    end
+    use Alchemy.Events
+    
+    Events.on_message(:ping)
+    def ping(msg), do: IO.inspect(msg.content)
+  
   end
 
   def start(_type, _args) do
     run = Client.start(System.get_env("BOT_TOKEN"))
-    Alchemy.Cogs.set_prefix("X")
+
+    Alchemy.Cogs.set_prefix("")
     use Commands
     run
   end
