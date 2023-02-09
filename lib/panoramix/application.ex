@@ -3,7 +3,7 @@ defmodule Panoramix.Application do
   alias Alchemy.Client
 
   defp load_modules do
-    use Allybot.Commands
+    use Panoramix.Commands
   end
 
   @impl true
