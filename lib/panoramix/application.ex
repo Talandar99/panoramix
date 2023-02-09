@@ -4,10 +4,12 @@ defmodule Panoramix.Application do
 
   defmodule Commands do
     use Alchemy.Events
-    
+
     Events.on_message(:ping)
-    def ping(msg), do: IO.inspect(msg.content)
-  
+
+    def ping(%{message: %{channel: channel}} = msg) do
+      Client.send_message(channel, "pong")
+    end
   end
 
   def start(_type, _args) do
