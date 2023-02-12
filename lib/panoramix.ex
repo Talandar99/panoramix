@@ -21,7 +21,7 @@ defmodule Panoramix do
   end
 
   defp load_modules do
-    # use Panoramix.Events
+    use Panoramix.Events
     use Panoramix.Commands.Basic
   end
 end
