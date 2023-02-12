@@ -3,12 +3,12 @@ defmodule Panoramix do
   alias Alchemy.{Client, Cogs}
 
   def start(_type, _args) do
-    case Application.get_env(:thonk, :token) do
+    case Application.get_env(:panoramix, :token) do
       nil ->
         raise "TOKEN env var is not set"
 
       token ->
-        prefix = Application.fetch_env!(:thonk, :prefix)
+        prefix = Application.fetch_env!(:panoramix, :prefix)
         bootstrap(token, prefix)
     end
   end
