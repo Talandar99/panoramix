@@ -1,18 +1,27 @@
 defmodule Panoramix do
-  @moduledoc """
-  Documentation for `Panoramix`.
-  """
+  use Application
+  alias Alchemy.{Client, Cogs}
 
-  @doc """
-  Hello world.
+  def start(_type, _args) do
+    case Application.get_env(:thonk, :token) do
+      nil ->
+        raise "TOKEN env var is not set"
 
-  ## Examples
+      token ->
+        prefix = Application.fetch_env!(:thonk, :prefix)
+        bootstrap(token, prefix)
+    end
+  end
 
-      iex> Panoramix.hello()
-      :world
+  defp bootstrap(token, prefix) do
+    run = Client.start(token)
+    load_modules()
+    Cogs.set_prefix(prefix)
+    run
+  end
 
-  """
-  def hello do
-    :world
+  defp load_modules do
+    # use Panoramix.Events
+    use Panoramix.Commands.Basic
   end
 end
